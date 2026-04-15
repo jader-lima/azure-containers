@@ -1,0 +1,57 @@
+apiVersion: 2021-09-01
+location: eastus
+name: company-container-group
+properties:
+  osType: Linux
+  restartPolicy: Always
+
+  containers:
+
+    - name: api-company-service
+      properties:
+        image: containerregistryfacensbigdata.azurecr.io/company/company-api:latest
+        resources:
+          requests:
+            cpu: 1
+            memoryInGb: 1.5
+        ports:
+          - port: 8000
+        environmentVariables:
+          - name: COMPANY_PG_HOST
+            value: ${COMPANY_PG_HOST}
+          - name: COMPANY_PG_SERVER_NAME
+            value: ${COMPANY_PG_SERVER_NAME}
+          - name: COMPANY_PG_USER
+            value: ${COMPANY_PG_USER}
+          - name: COMPANY_PG_PASSWORD
+            value: ${COMPANY_PG_PASSWORD}
+          - name: COMPANY_PG_BD_NAME
+            value: ${COMPANY_PG_BD_NAME}
+          - name: COMPANY_PG_PORT
+            value: ${COMPANY_PG_PORT}
+        volumeMounts:
+          - name: companyshare
+            mountPath: /opt
+
+  ipAddress:
+    type: Public
+    ports:
+      - protocol: TCP
+        port: 8000
+
+  imageRegistryCredentials:
+  - server: containerregistryfacensbigdata.azurecr.io
+    username: $ACR_USERNAME
+    password: $ACR_PASSWORD
+
+  diagnostics:
+    logAnalytics:
+      workspaceId: $WORKSPACE_ID
+      workspaceKey: $WORKSPACE_KEY
+
+  volumes:
+    - name: companyshare
+      azureFile:
+        shareName: companyshare
+        storageAccountName: $COMPANY_STORAGE_ACCOUNT_NAME
+        storageAccountKey: $STORAGE_KEY

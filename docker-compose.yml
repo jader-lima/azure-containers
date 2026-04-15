@@ -1,0 +1,28 @@
+services:
+    app:
+        container_name: api-company-service
+        image: company-api:latest
+        env_file:
+            - .env
+        environment:
+            COMPANY_PG_SERVER_NAME: $COMPANY_PG_SERVER_NAME
+            COMPANY_PG_USER: $COMPANY_PG_USER
+            COMPANY_PG_PASSWORD: $COMPANY_PG_PASSWORD
+            COMPANY_PG_BD_NAME: $COMPANY_PG_BD_NAME
+            COMPANY_PG_HOST: $COMPANY_PG_HOST
+            COMPANY_PG_PORT: $COMPANY_PG_PORT
+        ports:
+            - "8000:8000"
+        volumes:
+            - ./data:/opt/files:rw   
+        networks:
+            - postgres-network
+
+networks: 
+    postgres-network:
+      driver: bridge
+      
+volumes:
+    postgres-volume:
+
+
