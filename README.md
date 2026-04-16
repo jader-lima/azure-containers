@@ -8,13 +8,31 @@
 ### Instalação do azure cli 
 
 ```bash
-comando 
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash 
 ```
 
+```bash
+az login
+```
+
+### Apos confirmar o seu login e senha no navegador e receber a confirmação de login com sucesso, será solicitado a escolha da sua subscription, na linha de comando,  confirme a sua subscription, ela provavelmente será a subscription numero 1 - Azure for students
+
+### Utilize os comandos abaixo para verificar se a configuração do cli foi executada com exito.
+
+```bash
+
+az account list --output table
+```
+
+```bash
+az account list-locations --output table
+```
 
 ## Parte 2: Criação do grupo de recursos para o experimento
 
-O que é o grupo de recurso ?
+### O que é o grupo de recurso ?
+
+Um grupo de recursos é um contêiner que contém recursos relacionados para uma solução Azure. O grupo de recursos pode incluir todos os recursos para a solução ou apenas os recursos que você deseja gerenciar como um grupo. Você decide como alocar recursos para grupos de recursos com base no que faz mais sentido para sua organização. Em geral, adicione recursos compartilhando o mesmo ciclo de vida ao mesmo grupo de recursos para que você possa implantá-los, atualizá-los e excluí-los facilmente como um grupo. Embora um grupo de recursos tenha uma localidade especifica, seus recursos podem estar em outras localidades.
 
 ### Criação do azure resource group via azure cli 
 
@@ -28,7 +46,11 @@ COMPANY_PG_PASSWORD=A12345678a
 COMPANY_PG_BD_NAME=companydb
 COMPANY_PG_PORT=5432
 COMPANY_STORAGE_ACCOUNT_NAME=stfacensbigdatacompany
-COMPANY_LOCATION=canadacentral
+COMPANY_SHARE_NAME=companyshare
+COMPANY_CONTAINER_REGISTRY_NAME=containerregistryfacensbigdata
+COMPANY_ANALYTICS_WORKSPACE=awfacensbigdatacompany
+
+
 
 az group create --name $COMPANY_RESOURCE_GROUP --location "$COMPANY_LOCATION" 
 
@@ -39,21 +61,13 @@ az group list --output table
 
 ## Parte 3: Criação do banco de dados gerenciado - postgres
 
-O que é um banco de dados gerenciado ?
+### O que é um banco de dados gerenciado ?
 
-### Variaveis para a Criação de uma instancia de banco de dados gerenciada no azure - postgres
+O Banco de Dados do Azure para PostgreSQL é um serviço de banco de dados totalmente gerenciado que oferece controle granular e flexibilidade sobre as funções de gerenciamento de banco de dados e as configurações. O serviço fornece personalizações de flexibilidade e configuração de servidor com base em seus requisitos. A arquitetura permite agrupar o mecanismo de banco de dados com a camada de cliente para menor latência e escolher alta disponibilidade em uma única zona de disponibilidade e em várias zonas de disponibilidade. A instância de servidor flexível do Banco de Dados do Azure para PostgreSQL também fornece controles de otimização de custo com a capacidade de parar e iniciar seu servidor e uma camada de computação intermitível ideal para cargas de trabalho que não precisam de capacidade de computação completa continuamente. O serviço dá suporte a várias versões principais da comunidade do PostgreSQL. Para obter detalhes sobre as versões específicas com suporte, consulte versões com suporte do PostgreSQL no Banco de Dados do Azure para PostgreSQL. O serviço está disponível em diferentes regiões do Azure.
 
-```bash
-COMPANY_PG_SERVER_NAME=pgfacens01
-COMPANY_RESOURCE_GROUP=rg-facens-bigdata
-COMPANY_LOCATION=canadacentral
-COMPANY_PG_USER=pgfacens
-COMPANY_PG_PASSWORD=A12345678a
-COMPANY_PG_BD_NAME=companydb
-COMPANY_PG_PORT=5432
-COMPANY_STORAGE_ACCOUNT_NAME=stfacensbigdatacompany
-COMPANY_LOCATION=canadacentral
-```
+![grupo de recursos](./assets/img/overview-flexible-server.png)
+
+[Página de referência](https://learn.microsoft.com/pt-br/azure/postgresql/overview )
 
 
 ### Criação de uma instancia de banco de dados gerenciada no azure - postgres
@@ -158,21 +172,17 @@ az postgres flexible-server start --resource-group $COMPANY_RESOURCE_GROUP --nam
 
 ## Parte 4: Criação do grupo de storage account para armazenamento de arquivos
 
-O que é o storage account  ?
+### O que é o storage account  ?
 
-### variaveis para criação do storage account e file share
-```bash
-COMPANY_PG_SERVER_NAME=pgfacens01
-COMPANY_RESOURCE_GROUP=rg-facens-bigdata
-COMPANY_LOCATION=canadacentral
-COMPANY_PG_USER=pgfacens
-COMPANY_PG_PASSWORD=A12345678a
-COMPANY_PG_BD_NAME=companydb
-COMPANY_PG_PORT=5432
-COMPANY_STORAGE_ACCOUNT_NAME=stfacensbigdatacompany
-COMPANY_LOCATION=canadacentral
-COMPANY_SHARE_NAME=companyshare
-```
+O Azure Storage é um serviço de armazenamento em nuvem que oferece escalabilidade, durabilidade e alta disponibilidade para dados na nuvem. Ele é projetado para armazenar grandes volumes de dados de forma segura e acessível de qualquer lugar do mundo. O Azure Storage é composto por vários tipos de armazenamento, cada um otimizado para cenários específicos.
+
+- Azure Blob Storage: Armazena dados não estruturados (imagens, vídeos, documentos, logs).
+- Azure Files: Compartilhamentos de arquivos gerenciados (SMB/NFS).
+- Azure Queues: Armazenamento de mensagens para processamento assíncrono.
+- Azure Tables: Armazenamento NoSQL de chave-valor para dados estruturados.
+
+Segurança: Todos os dados são criptografados em repouso.
+Redundância: Oferece opções como LRS (local), ZRS (zona), GRS (geo) para garantir que os dados não sejam perdidos.
 
 ### Criar uma storage account e um file share 
 
@@ -225,22 +235,16 @@ az storage file upload-batch \
 
 ## Parte 5: Criação do container registry e implantando uma imagem de container salvar no container registry
 
-O que é o acr - azure container resgistry ?
+### O que é o acr - azure container registry ?
 
+O ACR - Azure Container Registry é o serviço de containers da Azure, para armazenar, gerenciar e implantar imagens de container Docker no ambiente azure, 
+de forma segura e escalável
 
-O que é o aci - azure container instances ?
+### O que é o aci - azure container instances ?
 
-
-
-### Variáveis utilizadas na criação do container registry e na implantação das imagens
-
-```bash
-COMPANY_RESOURCE_GROUP=rg-facens-bigdata
-COMPANY_CONTAINER_REGISTRY_NAME=containerregistryfacensbigdata
-COMPANY_STORAGE_ACCOUNT_NAME=stfacensbigdatacompany
-COMPANY_LOCATION=canadacentral
-COMPANY_SHARE_NAME=companyshare
-```
+O ACI - Azure Container Instances é a solução azure para implantar containers na infraestrutura da Azure, oferencendo suporte para containers Linux e Windows,
+sem a necessidade de provisionar máquinas virtuais , discos , etc.
+Compativel com diversos tipos de serviços de registro de containers
 
 ### Criar novo registro de container na azure 
 
@@ -283,15 +287,14 @@ docker push containerregistryfacensbigdata.azurecr.io/company/company-api:latest
 
 ## Parte 6: Criação  criando um log analytics workspace para verificar logs e erros 
 
-O que é o azure analytics workspace ?
+### O que é o azure log analytics workspace ?
+
+Um Workspace do Log Analytics é um repositório de dados no qual você pode coletar qualquer tipo de dado de log de todos os seus recursos e aplicativos do Azure e não Azure. As opções de configuração do espaço de trabalho permitem que você gerencie todos os seus dados de log em um único espaço de trabalho para atender às necessidades de operações, análise e auditoria de diferentes personas em sua organização por meio de:
+
+![grupo de recursos](./assets/img/overview-log-analytics-workspace.png)
 
 
-### Variaveis para a criação do log analytics workspaces
-
-```bash
-COMPANY_RESOURCE_GROUP=rg-facens-bigdata
-COMPANY_ANALYTICS_WORKSPACE=awfacensbigdatacompany
-```
+[Página de referência](https://learn.microsoft.com/pt-br/azure/azure-monitor/logs/log-analytics-workspace-overview.png )
 
 ### Criando o log analytics workspace
 
