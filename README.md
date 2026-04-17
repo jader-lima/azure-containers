@@ -1,6 +1,7 @@
 # Experimento cloud azure 
 
-
+### Arquitetura da aplicação
+![grupo de recursos](./assets/img/azure_containers.drawio.png)
 
 
 ## Parte 1: Instalação e configuração do cli da azure no ubuntu
