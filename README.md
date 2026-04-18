@@ -73,6 +73,11 @@ O Banco de Dados do Azure para PostgreSQL é um serviço de banco de dados total
 
 ### Criação de uma instancia de banco de dados gerenciada no azure - postgres
 
+### Ativar o provedor de banco de dados  - postgres
+```bash
+az provider register --namespace Microsoft.DBforPostgreSQL
+```
+
 ```bash
 az postgres flexible-server create \
   --name $COMPANY_PG_SERVER_NAME \
