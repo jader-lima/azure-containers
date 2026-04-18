@@ -431,8 +431,11 @@ envsubst < container-with-volume.yaml > converted_containers-with-volume.yaml
 ```
 
 ### O comando abaixo executa o arquivo yaml convertido, criando uma nova aci - azure container instance , baseada na imagem criada 
+### Ativando provedor - container instances
 
-
+```bash
+az provider register --namespace Microsoft.ContainerInstance
+```
 ```bash
 az container create \
     --resource-group $COMPANY_RESOURCE_GROUP \
