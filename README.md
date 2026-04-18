@@ -192,6 +192,11 @@ Redundância: Oferece opções como LRS (local), ZRS (zona), GRS (geo) para gara
 
 ### Criar uma storage account e um file share 
 
+### Ativando o provedor de storage 
+```bash
+az provider register --namespace Microsoft.Storage
+```
+
 ```bash
 az storage account create \
     --name $COMPANY_STORAGE_ACCOUNT_NAME \
