@@ -246,6 +246,10 @@ az storage file upload-batch \
 
 
 ## Parte 5: Criação do container registry e implantando uma imagem de container salvar no container registry
+### Ativar o provedor de acr -azure container registry
+```bash
+az provider register --namespace Microsoft.ContainerRegistry
+```
 
 ### O que é o acr - azure container registry ?
 
