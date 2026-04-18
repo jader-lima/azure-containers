@@ -189,6 +189,7 @@ O Azure Storage é um serviço de armazenamento em nuvem que oferece escalabilid
 
 Segurança: Todos os dados são criptografados em repouso.
 Redundância: Oferece opções como LRS (local), ZRS (zona), GRS (geo) para garantir que os dados não sejam perdidos.
+**Atenção** O nome do storage deve ser único, modifique o valor da variavel COMPANY_STORAGE_ACCOUNT_NAME=stfacensbigdatacompanyXXX adicionando numeros para ter um resultado único
 
 ### Criar uma storage account e um file share 
 
