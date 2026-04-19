@@ -1,5 +1,5 @@
 apiVersion: 2021-09-01
-location: eastus
+location: $COMPANY_LOCATION
 name: company-container-group
 properties:
   osType: Linux
@@ -9,7 +9,8 @@ properties:
 
     - name: api-company-service
       properties:
-        image: containerregistryfacensbigdata.azurecr.io/company/company-api:latest
+            value: ${COMPANY_PG_HOST}
+        image: $COMPANY_CONTAINER_REGISTRY_NAME.azurecr.io/company/company-api:latest
         resources:
           requests:
             cpu: 1
@@ -40,7 +41,7 @@ properties:
         port: 8000
 
   imageRegistryCredentials:
-  - server: containerregistryfacensbigdata.azurecr.io
+  - server: $COMPANY_CONTAINER_REGISTRY_NAME.azurecr.io
     username: $ACR_USERNAME
     password: $ACR_PASSWORD
 
