@@ -35,6 +35,21 @@ az account list-locations --output table
 
 Um grupo de recursos é um contêiner que contém recursos relacionados para uma solução Azure. O grupo de recursos pode incluir todos os recursos para a solução ou apenas os recursos que você deseja gerenciar como um grupo. Você decide como alocar recursos para grupos de recursos com base no que faz mais sentido para sua organização. Em geral, adicione recursos compartilhando o mesmo ciclo de vida ao mesmo grupo de recursos para que você possa implantá-los, atualizá-los e excluí-los facilmente como um grupo. Embora um grupo de recursos tenha uma localidade especifica, seus recursos podem estar em outras localidades.
 
+### Importante !!!###
+Devido a utilização de uma cubscription estudantil, temos politicas de restrição durante a criação de recurso, onde somente algumas localidades são disponíveis para a criação das mesma, o comando abaixo retorna as localidades disponíveis para criação.
+
+```bash
+az policy assignment list   --query "[].parameters.listOfAllowedLocations.value[]" -o tsv
+```
+
+- **eastus**
+- **outhcentralus**
+- **mexicocentral**
+- **canadacentral**
+- **chilecentral**
+
+Das localidades acima, o experimento foi realizado do inicio ao fim duas vezes, com as localidades **mexicocentral** e **canadacentral**
+
 ### Criação do azure resource group via azure cli 
 
 ```bash
