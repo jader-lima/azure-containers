@@ -290,12 +290,12 @@ docker build -t company-api:latest .
 
 ### Tageando a imagem baixada com uma diferente Tag
 ```bash
-docker tag company-api:latest containerregistryfacensbigdata.azurecr.io/company/company-api:latest
+docker tag company-api:latest $COMPANY_CONTAINER_REGISTRY_NAME.azurecr.io/company/company-api:latest
 ```
 
 ### Push na nova imagem tageada localmente para o container registry
 ```bash
-docker push containerregistryfacensbigdata.azurecr.io/company/company-api:latest
+docker push $COMPANY_CONTAINER_REGISTRY_NAME.azurecr.io/company/company-api:latest
 ```
 
 ![grupo de recursos](./assets/img/container_registry.png)
