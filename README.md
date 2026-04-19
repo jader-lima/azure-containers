@@ -279,8 +279,9 @@ az acr show --name $COMPANY_CONTAINER_REGISTRY_NAME  --query loginServer --outpu
 
 
 ### É necessário  para habilitar o acesso admin , para poder usar as variaveis username e secret abaixo #############
+```bash
 az acr update -n $COMPANY_CONTAINER_REGISTRY_NAME --admin-enabled true
-
+```
 ### Construindo a imagem localmente 
 
 ```bash
